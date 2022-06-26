@@ -4,11 +4,18 @@ import 'package:products_challenge/features/home/domain/errors/product_failure.d
 import 'package:products_challenge/features/home/domain/repositories/product_repository.dart';
 
 abstract class GetProductApiUseCase {
+  Future<Either<ProductFailure, List<ProductEntity>>> call();
+}
+
+class GetProductApiUseCaseImpl implements GetProductApiUseCase {
   final ProductRepository repository;
 
-  GetProductApiUseCase(this.repository);
+  GetProductApiUseCaseImpl(this.repository);
 
+  @override
   Future<Either<ProductFailure, List<ProductEntity>>> call() async {
-    return await repository.getProducts();
+    
+    final response = await repository.getProducts();
+    return response;
   }
 }

@@ -1,5 +1,1 @@
-class ProductFailure implements Exception {
-  final String message;
-
-  ProductFailure(this.message);
-}
+abstract class ProductFailure implements Exception {}
