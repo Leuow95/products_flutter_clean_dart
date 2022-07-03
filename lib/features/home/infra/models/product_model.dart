@@ -38,7 +38,7 @@ class ProductModel extends ProductEntity {
 
   String toJson() => json.encode(toMap());
 
-  static ProductModel fromMap(Map<String, dynamic> map) {
+  static ProductModel fromMap(dynamic map) {
     return ProductModel(
       title: map['title']?.toString() ?? "No title found",
       type: map['type']?.toString() ?? "No type found",

@@ -24,7 +24,7 @@ void main() {
         description: "description",
         filename: "filename",
         height: 100,
-        widht: 100,
+        width: 100,
         price: 100.5,
         rating: 5,
       );

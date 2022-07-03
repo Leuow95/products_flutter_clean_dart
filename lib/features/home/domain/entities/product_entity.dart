@@ -4,7 +4,7 @@ class ProductEntity {
   final String description;
   final String filename;
   final int height;
-  final int widht;
+  final int width;
   final double price;
   final int rating;
 
@@ -14,7 +14,7 @@ class ProductEntity {
     required this.description,
     required this.filename,
     required this.height,
-    required this.widht,
+    required this.width,
     required this.price,
     required this.rating,
   });
