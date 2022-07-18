@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:products_challenge/features/home/domain/usecases/get_products_api_usecase.dart';
 import 'package:products_challenge/features/home/external/datasource/firebase_datasource.dart';
 import 'package:products_challenge/features/home/infra/repositories/product_repository_impl.dart';
-import 'package:products_challenge/features/presenter/controllers/home_controller.dart';
-import 'package:products_challenge/features/presenter/controllers/state/products_state.dart';
+import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
+import 'package:products_challenge/features/home/presenter/controllers/state/products_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,15 +44,22 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
               itemCount: state.products.length,
               itemBuilder: (context, index) => ListTile(
-                leading: Image.asset(
-                  "assets/images/${state.products[index].filename}",
-                  // width: state.products[index].width.toDouble(),
-                  // height: state.products[index].height.toDouble(),
-                  alignment: Alignment.centerLeft,
-                  fit: BoxFit.scaleDown,
+                leading: ClipRRect(
+                  child: Image.asset(
+                    "assets/images/${state.products[index].filename}",
+                    alignment: Alignment.centerLeft,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 title: Text(state.products[index].title),
                 subtitle: Text(state.products[index].type),
+                trailing: PopupMenuButton(
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(child: Text("Editar")),
+                    const PopupMenuItem(child: Text("Excluir")),
+                  ],
+                ),
               ),
             );
           }

@@ -14,13 +14,10 @@ class FirebaseDataSource implements ProductsDataSource {
 
       final jsonObject = List?.from(dataSnapshot.value as List);
 
-      if (jsonObject != null) {
-        final jsonValue = jsonObject;
-        final list = (jsonValue).map((e) => ProductModel.fromMap(e)).toList();
+      final jsonValue = jsonObject;
+      final list = (jsonValue).map((e) => ProductModel.fromMap(e)).toList();
 
-        return list;
-      }
-      return [];
+      return list;
     } catch (e) {
       return [];
     }
