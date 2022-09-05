@@ -1,10 +1,11 @@
-# products_challenge
 
-A new Flutter project.
+
+# Products Flutter Clean Dart
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+![Flutter Badge]("https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white")
 
 A few resources to get you started if this is your first Flutter project:
 
