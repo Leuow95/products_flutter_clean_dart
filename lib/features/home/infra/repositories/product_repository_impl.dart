@@ -21,4 +21,16 @@ class ProductRepositoryImpl implements ProductRepository {
       return Left(DataSourceError());
     }
   }
+
+  @override
+  Future<Either<ProductFailure, bool>> deleteProduct(int index) async {
+    try {
+      await dataSource.deleteProduct(index);
+      return right(true);
+    } on DataSourceError catch (e) {
+      return left(e);
+    } catch (e) {
+      return left(DataSourceError());
+    }
+  }
 }
