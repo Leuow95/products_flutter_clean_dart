@@ -1,9 +1,9 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:products_challenge/features/home/domain/usecases/get_products_api_usecase.dart';
-import 'package:products_challenge/features/home/external/datasource/firebase_datasource.dart';
-import 'package:products_challenge/features/home/infra/repositories/product_repository_impl.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
+import 'package:products_challenge/features/home/domain/usecases/get_products_api_usecase.dart';
+import 'package:products_challenge/features/home/domain/usecases/delete_product_api_usecase.dart';
+import 'package:products_challenge/features/home/external/datasource/firebase_datasource_v2.dart';
+import 'package:products_challenge/features/home/infra/repositories/product_repository_impl.dart';
 import 'package:products_challenge/features/home/presenter/controllers/state/products_state.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,12 +19,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     controller = HomeController(
-      getProductsUsecase: GetProductApiUseCaseImpl(
-        ProductRepositoryImpl(
-          FirebaseDataSource(FirebaseDatabase.instance.ref("/")),
+        getProductsUsecase: GetProductApiUseCaseImpl(
+          ProductRepositoryImpl(
+            FirestoreDataSource(),
+          ),
         ),
-      ),
-    );
+        deleteProductUsecase: DeleteProductsUsecaseImpl(
+            ProductRepositoryImpl(FirestoreDataSource())));
     controller.fetchProducts();
     super.initState();
   }
@@ -57,7 +58,10 @@ class _HomePageState extends State<HomePage> {
                 trailing: PopupMenuButton(
                   itemBuilder: (context) => [
                     const PopupMenuItem(child: Text("Editar")),
-                    const PopupMenuItem(child: Text("Excluir")),
+                    PopupMenuItem(
+                      child: const Text("Excluir"),
+                      onTap: () => controller.deleteProductByIndex(index),
+                    ),
                   ],
                 ),
               ),
