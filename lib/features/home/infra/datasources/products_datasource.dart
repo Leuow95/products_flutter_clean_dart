@@ -2,5 +2,5 @@ import 'package:products_challenge/features/home/infra/models/product_model.dart
 
 abstract class ProductsDataSource {
   Future<List<ProductModel>> getProducts();
-  Future<bool> deleteProduct(int index);
+  Future<bool> deleteProduct({required String id});
 }

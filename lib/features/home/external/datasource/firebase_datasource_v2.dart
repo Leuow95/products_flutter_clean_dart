@@ -10,17 +10,23 @@ class FirestoreDataSource implements ProductsDataSource {
 
       final data = await db.collection("products").get();
 
-      final response = List.from(data.docs);
-
-      return response.map((e) => ProductModel.fromMap(e)).toList();
+      return data.docs
+          .map((e) => ProductModel.fromMap(e.data(), e.id))
+          .toList();
     } catch (e) {
       throw UnimplementedError();
     }
   }
 
   @override
-  Future<bool> deleteProduct(int index) {
-    // TODO: implement deleteProduct
-    throw UnimplementedError();
+  Future<bool> deleteProduct({required String id}) async {
+    try {
+      final db = FirebaseFirestore.instance;
+
+      await db.collection("products").doc(id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
