@@ -23,9 +23,10 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<ProductFailure, bool>> deleteProduct(int index) async {
+  Future<Either<ProductFailure, bool>> deleteProduct(
+      {required String id}) async {
     try {
-      await dataSource.deleteProduct(index);
+      await dataSource.deleteProduct(id: id);
       return right(true);
     } on DataSourceError catch (e) {
       return left(e);

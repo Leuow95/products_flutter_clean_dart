@@ -4,5 +4,5 @@ import 'package:products_challenge/features/home/domain/errors/product_failure.d
 
 abstract class ProductRepository {
   Future<Either<ProductFailure, List<ProductEntity>>> getProducts();
-  Future<Either<ProductFailure, bool>> deleteProduct(int index);
+  Future<Either<ProductFailure, bool>> deleteProduct({required String id});
 }
