@@ -19,6 +19,7 @@ void main() {
   group("getProductsUseCase |", () {
     test("Should return a [List<ProductsEntity>] if successful", () async {
       final entity = ProductEntity(
+        id: "id",
         title: "title",
         type: "type",
         description: "description",
