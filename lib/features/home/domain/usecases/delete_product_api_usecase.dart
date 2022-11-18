@@ -3,7 +3,7 @@ import 'package:products_challenge/features/home/domain/errors/product_failure.d
 import 'package:products_challenge/features/home/domain/repositories/product_repository.dart';
 
 abstract class DeleteProductUsecase {
-  Future<Either<ProductFailure, bool>> deleteProductByIndex(int index);
+  Future<Either<ProductFailure, bool>> call(int index);
 }
 
 class DeleteProductsUsecaseImpl implements DeleteProductUsecase {
@@ -12,7 +12,7 @@ class DeleteProductsUsecaseImpl implements DeleteProductUsecase {
   DeleteProductsUsecaseImpl(this.repository);
 
   @override
-  Future<Either<ProductFailure, bool>> deleteProductByIndex(int index) async {
+  Future<Either<ProductFailure, bool>> call(int index) async {
     final eitherResponse = await repository.deleteProduct(index);
 
     return eitherResponse.fold(
