@@ -4,6 +4,7 @@ import 'package:products_challenge/features/home/domain/entities/product_entity.
 
 class ProductModel extends ProductEntity {
   ProductModel({
+    required String id,
     required String title,
     required String type,
     required String description,
@@ -13,6 +14,7 @@ class ProductModel extends ProductEntity {
     required double price,
     required int rating,
   }) : super(
+          id: id,
           title: title,
           type: type,
           description: description,
@@ -25,6 +27,7 @@ class ProductModel extends ProductEntity {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'title': title,
       'type': type,
       'description': description,
@@ -38,8 +41,9 @@ class ProductModel extends ProductEntity {
 
   String toJson() => json.encode(toMap());
 
-  static ProductModel fromMap(dynamic map) {
+  static ProductModel fromMap(dynamic map, String id) {
     return ProductModel(
+      id: id,
       title: map['title']?.toString() ?? "No title found",
       type: map['type']?.toString() ?? "No type found",
       description: map['description']?.toString() ?? "No description found",
@@ -51,5 +55,5 @@ class ProductModel extends ProductEntity {
     );
   }
 
-  static ProductModel fromJson(String source) => fromMap(json.decode(source));
+  // static ProductModel fromJson(String source) => fromMap(json.decode(source));
 }
