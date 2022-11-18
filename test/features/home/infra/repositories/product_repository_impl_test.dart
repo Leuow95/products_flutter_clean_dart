@@ -28,6 +28,7 @@ void main() {
     test("Should return a [List<ProductModel> when call successful] |",
         () async {
       final productModel = ProductModel(
+        id: "id",
         title: "title",
         type: "type",
         description: "description",

@@ -5,6 +5,7 @@ void main() {
   group("ProductModel |", () {
     test("toMap", () {
       final ProductModel productModel = ProductModel(
+        id: "id",
         title: "title",
         type: "type",
         description: "description",
@@ -29,6 +30,7 @@ void main() {
 
     test("fromMap success", () {
       final json = {
+        "id": "idfromapp",
         "title": "title",
         "type": "type",
         "description": "description",
@@ -39,7 +41,8 @@ void main() {
         "rating": 4,
       };
 
-      final ProductModel productModel = ProductModel.fromMap(json);
+      final ProductModel productModel =
+          ProductModel.fromMap(json, json["id"].toString());
       expect(productModel.title, "title");
       expect(productModel.type, "type");
       expect(productModel.description, "description");
@@ -53,7 +56,8 @@ void main() {
     test("fromMap error", () {
       final json = {"teste": ""};
 
-      final ProductModel productModel = ProductModel.fromMap(json);
+      final ProductModel productModel =
+          ProductModel.fromMap(json, json["id"].toString());
       expect(productModel.title, "No title found");
       expect(productModel.type, "No type found");
       expect(productModel.description, "No description found");
@@ -70,7 +74,8 @@ void main() {
         "title": 10.5,
       };
 
-      final ProductModel productModel = ProductModel.fromMap(json);
+      final ProductModel productModel =
+          ProductModel.fromMap(json, json["id"].toString());
       expect(productModel.title, 10.5.toString());
       expect(productModel.type, "No type found");
       expect(productModel.description, "No description found");
