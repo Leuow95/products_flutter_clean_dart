@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-//importas as dependencias quando trabalhar no presenter
 import 'package:firebase_core/firebase_core.dart';
-import 'package:products_challenge/features/home/presenter/controllers/pages/home_page.dart';
+import 'features/home/presenter/pages/home_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
