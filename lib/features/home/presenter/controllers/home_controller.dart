@@ -23,10 +23,10 @@ class HomeController extends ValueNotifier<ProductState> {
     );
   }
 
-  Future<void> deleteProductByIndex(int index) async {
+  Future<void> deleteProductByIndex({required String id}) async {
     value = ProductLoadingState();
 
-    final eitherResponse = await deleteProductUsecase.call(index);
+    final eitherResponse = await deleteProductUsecase.call(id: id);
 
     eitherResponse.fold(
       (failure) => value = ProductFailureState(failure.toString()),
