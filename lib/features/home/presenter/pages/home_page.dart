@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           if (state is ProductInitialState) {
             return const Center(child: Text("Funcionou nao"));
           } else if (state is ProductLoadingState) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (state is ProductSuccessState) {
             return ListView.builder(
               itemCount: state.products.length,
@@ -60,7 +60,8 @@ class _HomePageState extends State<HomePage> {
                     const PopupMenuItem(child: Text("Editar")),
                     PopupMenuItem(
                       child: const Text("Excluir"),
-                      onTap: () => controller.deleteProductByIndex(index),
+                      onTap: () => controller.deleteProductByIndex(
+                          id: state.products[index].id),
                     ),
                   ],
                 ),
