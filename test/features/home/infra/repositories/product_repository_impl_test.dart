@@ -2,19 +2,26 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:products_challenge/features/home/domain/errors/product_failure.dart';
+import 'package:products_challenge/features/home/external/datasource/firebase_datasource_v2.dart';
 import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
 import 'package:products_challenge/features/home/infra/models/product_model.dart';
 import 'package:products_challenge/features/home/infra/repositories/product_repository_impl.dart';
 
 class ProductsDataSourceMock extends Mock implements ProductsDataSource {}
 
+class FirestoreDataSourceMock extends Mock implements FirestoreDataSource {}
+
 void main() {
+  late FirestoreDataSourceMock firestoreMock;
   late ProductsDataSourceMock dataSourceMock;
   late ProductRepositoryImpl repository;
 
   setUp(() {
+    firestoreMock = FirestoreDataSourceMock();
     dataSourceMock = ProductsDataSourceMock();
-    repository = ProductRepositoryImpl(dataSourceMock);
+    repository = ProductRepositoryImpl(
+      firestoreMock,
+    );
   });
 
   group("getProducts |", () {
