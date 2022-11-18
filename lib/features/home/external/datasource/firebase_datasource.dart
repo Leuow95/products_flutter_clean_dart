@@ -10,16 +10,32 @@ class FirebaseDataSource implements ProductsDataSource {
   @override
   Future<List<ProductModel>> getProducts() async {
     try {
+      final List<ProductModel> list = [];
       final DataSnapshot dataSnapshot = await database.get();
 
       final jsonObject = List?.from(dataSnapshot.value as List);
 
-      final jsonValue = jsonObject;
-      final list = (jsonValue).map((e) => ProductModel.fromMap(e)).toList();
+      // ignore: avoid_function_literals_in_foreach_calls
+      jsonObject.forEach((element) {
+        if (element != null) {
+          list.add(ProductModel.fromMap(element));
+        }
+      });
 
       return list;
     } catch (e) {
       return [];
+    }
+  }
+
+  @override
+  Future<bool> deleteProduct(int index) async {
+    try {
+      final ref = FirebaseDatabase.instance.ref();
+      ref.child("/$index").remove();
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }
