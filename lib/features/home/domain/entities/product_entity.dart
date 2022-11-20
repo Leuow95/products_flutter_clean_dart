@@ -1,5 +1,5 @@
 class ProductEntity {
-  final String id;
+  final String? id;
   final String title;
   final String type;
   final String description;
@@ -10,7 +10,7 @@ class ProductEntity {
   final int rating;
 
   ProductEntity({
-    required this.id,
+    this.id,
     required this.title,
     required this.type,
     required this.description,

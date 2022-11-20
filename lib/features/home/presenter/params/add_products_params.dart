@@ -1,5 +1,5 @@
 class AddProductsParams {
-  final String id;
+  final String? id;
   final String title;
   final String type;
   final String description;
@@ -10,7 +10,7 @@ class AddProductsParams {
   final int rating;
 
   AddProductsParams({
-    required this.id,
+    this.id,
     required this.title,
     required this.type,
     required this.description,
