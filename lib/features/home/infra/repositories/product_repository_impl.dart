@@ -34,4 +34,10 @@ class ProductRepositoryImpl implements ProductRepository {
       return left(DataSourceError());
     }
   }
+
+  @override
+  Future<Either<ProductFailure, bool>> addProduct(
+      {required ProductEntity productEntity}) {
+    throw UnimplementedError();
+  }
 }

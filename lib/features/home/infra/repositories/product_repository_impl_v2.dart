@@ -3,6 +3,7 @@ import 'package:products_challenge/features/home/domain/entities/product_entity.
 import 'package:dartz/dartz.dart';
 import 'package:products_challenge/features/home/domain/repositories/product_repository.dart';
 import 'package:products_challenge/features/home/external/datasource/firebase_datasource_v2.dart';
+import 'package:products_challenge/features/home/infra/models/product_model.dart';
 
 class ProductRepositoryImplV2 implements ProductRepository {
   final FirestoreDataSource dataSource;
@@ -27,6 +28,22 @@ class ProductRepositoryImplV2 implements ProductRepository {
       {required String id}) async {
     try {
       await dataSource.deleteProduct(id: id);
+      return right(true);
+    } on DataSourceError catch (e) {
+      return left(e);
+    } catch (e) {
+      return left(DataSourceError());
+    }
+  }
+
+  @override
+  Future<Either<ProductFailure, bool>> addProduct({
+    required ProductEntity productEntity,
+  }) async {
+    try {
+      await dataSource.addProduct(
+          productModel: ProductModel.fromEntity(productEntity));
+
       return right(true);
     } on DataSourceError catch (e) {
       return left(e);
