@@ -4,7 +4,7 @@ import 'package:products_challenge/features/home/domain/entities/product_entity.
 
 class ProductModel extends ProductEntity {
   ProductModel({
-    required String id,
+    required String? id,
     required String title,
     required String type,
     required String description,
@@ -57,7 +57,7 @@ class ProductModel extends ProductEntity {
 
   factory ProductModel.fromEntity(ProductEntity entity) {
     return ProductModel(
-        id: entity.id!,
+        id: entity.id,
         title: entity.title,
         type: entity.type,
         description: entity.description,
