@@ -12,6 +12,8 @@ class ProductSuccessState implements ProductState {
   ProductSuccessState(this.products);
 }
 
+class AddProductSuccessState implements ProductState {}
+
 class ProductFailureState implements ProductState {
   final String message;
 
