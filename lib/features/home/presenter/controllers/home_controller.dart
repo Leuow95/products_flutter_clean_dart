@@ -46,7 +46,7 @@ class HomeController extends ValueNotifier<ProductState> {
 
     final eitherResponse = await addProductUsecase.call(
       productEntity: ProductEntity(
-          id: params.id,
+          id: null,
           title: params.title,
           type: params.type,
           description: params.description,
