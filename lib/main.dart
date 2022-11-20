@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_core/firebase_core.dart';
-import 'features/home/presenter/pages/home_page.dart';
+import 'package:products_challenge/routes/routes_generator.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -24,10 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/homepage",
-      routes: {
-        "/homepage": (context) => const HomePage(),
-      },
+      onGenerateRoute: RoutesGenerator.generateRoutes,
     );
   }
 }
