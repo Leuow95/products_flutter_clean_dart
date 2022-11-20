@@ -55,5 +55,16 @@ class ProductModel extends ProductEntity {
     );
   }
 
-  // static ProductModel fromJson(String source) => fromMap(json.decode(source));
+  factory ProductModel.fromEntity(ProductEntity entity) {
+    return ProductModel(
+        id: entity.id,
+        title: entity.title,
+        type: entity.type,
+        description: entity.description,
+        filename: entity.filename,
+        height: entity.height,
+        width: entity.width,
+        price: entity.price,
+        rating: entity.rating);
+  }
 }
