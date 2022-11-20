@@ -57,7 +57,7 @@ class ProductModel extends ProductEntity {
 
   factory ProductModel.fromEntity(ProductEntity entity) {
     return ProductModel(
-        id: entity.id,
+        id: entity.id!,
         title: entity.title,
         type: entity.type,
         description: entity.description,
