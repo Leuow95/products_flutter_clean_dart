@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../controllers/home_controller.dart';
+import '../widgets/add_products_form.dart';
 
 class AddProductPage extends StatelessWidget {
   final HomeController controller;
@@ -15,18 +16,8 @@ class AddProductPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Add Product"),
       ),
-      body: Column(
-        children: [
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-          TextFormField(),
-        ],
+      body: AddProductsForm(
+        homeController: controller,
       ),
     );
   }
