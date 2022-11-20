@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Produtos")),
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
         onPressed: () => Navigator.of(context)
             .pushNamed("/add_product", arguments: controller),
       ),
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                     PopupMenuItem(
                       child: const Text("Excluir"),
                       onTap: () => controller.deleteProductByIndex(
-                          id: state.products[index].id),
+                          id: state.products[index].id!),
                     ),
                   ],
                 ),
