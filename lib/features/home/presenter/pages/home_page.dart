@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_challenge/features/home/domain/usecases/add_product_api_usecase.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
 import 'package:products_challenge/features/home/domain/usecases/get_products_api_usecase.dart';
 import 'package:products_challenge/features/home/domain/usecases/delete_product_api_usecase.dart';
@@ -19,13 +20,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     controller = HomeController(
-        getProductsUsecase: GetProductApiUseCaseImpl(
-          ProductRepositoryImpl(
-            FirestoreDataSource(),
-          ),
-        ),
-        deleteProductUsecase: DeleteProductsUsecaseImpl(
-            ProductRepositoryImpl(FirestoreDataSource())));
+      getProductsUsecase: GetProductApiUseCaseImpl(
+        ProductRepositoryImpl(FirestoreDataSource()),
+      ),
+      deleteProductUsecase: DeleteProductsUsecaseImpl(
+          ProductRepositoryImpl(FirestoreDataSource())),
+      addProductUsecase: AddProductUsecaseImpl(
+        ProductRepositoryImpl(FirestoreDataSource()),
+      ),
+    );
     controller.fetchProducts();
     super.initState();
   }
