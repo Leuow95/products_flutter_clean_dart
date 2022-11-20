@@ -25,6 +25,11 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final ratingController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -35,6 +40,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
             children: [
               TextFormField(
                 keyboardType: TextInputType.name,
+                controller: nameController,
                 autofocus: true,
                 decoration: InputDecoration(
                     hintText: 'What product do you want to add?',
@@ -45,6 +51,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.name,
+                controller: typeController,
                 decoration: InputDecoration(
                     hintText: 'What\'s the type of the product?',
                     labelText: 'Type',
@@ -54,6 +61,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.text,
+                controller: descriptionController,
                 decoration: InputDecoration(
                     hintText: 'Description of the Product?',
                     labelText: 'Description',
@@ -63,6 +71,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.text,
+                controller: filenameController,
                 decoration: InputDecoration(
                     hintText: 'Product Image name?',
                     labelText: 'Filename',
@@ -72,6 +81,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.number,
+                controller: heightController,
                 decoration: InputDecoration(
                     hintText: 'What\'s the height of the product?',
                     labelText: 'Height',
@@ -81,6 +91,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.number,
+                controller: widthController,
                 decoration: InputDecoration(
                     hintText: 'What\'s the width of the product?',
                     labelText: 'Width',
@@ -90,6 +101,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.number,
+                controller: priceController,
                 decoration: InputDecoration(
                     hintText: 'What\'s the price of the product?',
                     labelText: 'Price',
@@ -99,6 +111,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.number,
+                controller: ratingController,
                 decoration: InputDecoration(
                     hintText: 'What\'s the rating of the product',
                     labelText: 'Rating',
