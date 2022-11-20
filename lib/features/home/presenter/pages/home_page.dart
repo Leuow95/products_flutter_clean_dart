@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:products_challenge/features/home/domain/usecases/add_product_api_usecase.dart';
+import 'package:products_challenge/features/home/infra/repositories/product_repository_impl_v2.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
 import 'package:products_challenge/features/home/domain/usecases/get_products_api_usecase.dart';
 import 'package:products_challenge/features/home/domain/usecases/delete_product_api_usecase.dart';
 import 'package:products_challenge/features/home/external/datasource/firebase_datasource_v2.dart';
-import 'package:products_challenge/features/home/infra/repositories/product_repository_impl.dart';
 import 'package:products_challenge/features/home/presenter/controllers/state/products_state.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,12 +21,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     controller = HomeController(
       getProductsUsecase: GetProductApiUseCaseImpl(
-        ProductRepositoryImpl(FirestoreDataSource()),
+        ProductRepositoryImplV2(FirestoreDataSource()),
       ),
       deleteProductUsecase: DeleteProductsUsecaseImpl(
-          ProductRepositoryImpl(FirestoreDataSource())),
+          ProductRepositoryImplV2(FirestoreDataSource())),
       addProductUsecase: AddProductUsecaseImpl(
-        ProductRepositoryImpl(FirestoreDataSource()),
+        ProductRepositoryImplV2(FirestoreDataSource()),
       ),
     );
     controller.fetchProducts();
