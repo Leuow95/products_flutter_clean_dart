@@ -37,6 +37,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Produtos")),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context)
+            .pushNamed("/add_product", arguments: controller),
+      ),
       body: ValueListenableBuilder<ProductState>(
         valueListenable: controller,
         builder: (context, state, __) {
