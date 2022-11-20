@@ -29,4 +29,28 @@ class FirestoreDataSource implements ProductsDataSource {
       return false;
     }
   }
+
+  @override
+  Future<bool> addProduct({required ProductModel productModel}) async {
+    // const item2 = {
+    //   "title": "Sweet fresh stawberry",
+    //   "type": "fruit",
+    //   "description": "Sweet fresh stawberry on the wooden table",
+    //   "filename": "1.jpg",
+    //   "height": 450,
+    //   "width": 299,
+    //   "price": 29.45,
+    //   "rating": 4
+    // };
+
+    try {
+      final db = FirebaseFirestore.instance;
+
+      await db.collection("products").add(productModel.toMap());
+      // await db.collection("products").add(item2);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
