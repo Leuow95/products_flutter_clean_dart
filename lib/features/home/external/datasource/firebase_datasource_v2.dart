@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
 import 'package:products_challenge/features/home/infra/models/product_model.dart';
 
@@ -15,6 +16,18 @@ class FirestoreDataSource implements ProductsDataSource {
           .toList();
     } catch (e) {
       throw UnimplementedError();
+    }
+  }
+
+  Future<String> getImageProduct(String url) async {
+    try {
+      final storageImage = FirebaseStorage.instance
+          .ref()
+          .child("gs://products-challenge-ca64d.appspot.com/products/$url");
+
+      return await storageImage.getDownloadURL();
+    } catch (e) {
+      return e.toString();
     }
   }
 
