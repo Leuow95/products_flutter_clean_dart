@@ -8,14 +8,9 @@
    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
 </p>
 
-> Status of Projeto:  :warning: In progress
+> Status of Project:  :warning: In progress
 
+## Objective
 
-## Getting Started
+This project is an example of how to implement the different layers of Clean Architecture. In this case, I followed the Clean Dart.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
