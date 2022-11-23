@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:products_challenge/features/home/domain/usecases/add_product_api_usecase.dart';
 import 'package:products_challenge/features/home/infra/repositories/product_repository_impl_v2.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
@@ -51,8 +52,10 @@ class _HomePageState extends State<HomePage> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProductSuccessState) {
             return ListView.builder(
+              itemExtent: 80,
               itemCount: state.products.length,
               itemBuilder: (context, index) => ListTile(
+                visualDensity: const VisualDensity(vertical: 2),
                 leading: ClipRRect(
                   child: Image.asset(
                     "assets/images/${state.products[index].filename}",
@@ -62,15 +65,38 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 title: Text(state.products[index].title),
-                subtitle: Text(state.products[index].type),
-                trailing: PopupMenuButton(
-                  itemBuilder: (context) => [
-                    const PopupMenuItem(child: Text("Editar")),
-                    PopupMenuItem(
-                      child: const Text("Excluir"),
-                      onTap: () => controller.deleteProductByIndex(
-                          id: state.products[index].id!),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(state.products[index].type),
+                    RatingBar.builder(
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      ignoreGestures: true,
+                      itemSize: 20,
+                      initialRating: state.products[index].rating.toDouble(),
+                      allowHalfRating: true,
+                      onRatingUpdate: (rating) {},
                     ),
+                  ],
+                ),
+                trailing: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    PopupMenuButton(
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(child: Text("Editar")),
+                        PopupMenuItem(
+                          child: const Text("Excluir"),
+                          onTap: () => controller.deleteProductByIndex(
+                              id: state.products[index].id!),
+                        ),
+                      ],
+                    ),
+                    const Text("R\$ 20,00")
                   ],
                 ),
               ),
