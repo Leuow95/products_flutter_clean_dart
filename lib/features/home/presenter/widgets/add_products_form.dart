@@ -25,11 +25,6 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final ratingController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
