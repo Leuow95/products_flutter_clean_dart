@@ -50,9 +50,7 @@ class HomeController extends ValueNotifier<ProductState> {
           title: params.title,
           type: params.type,
           description: params.description,
-          filename: params.filename,
-          height: params.height,
-          width: params.width,
+          imageUrl: params.imageUrl,
           price: params.price,
           rating: params.rating),
     );

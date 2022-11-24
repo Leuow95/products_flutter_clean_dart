@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomeController controller;
+  late final FirestoreDataSource imageService;
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _HomePageState extends State<HomePage> {
         ProductRepositoryImplV2(FirestoreDataSource()),
       ),
     );
+    imageService = FirestoreDataSource();
     controller.fetchProducts();
     super.initState();
   }
@@ -57,8 +59,8 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) => ListTile(
                 visualDensity: const VisualDensity(vertical: 2),
                 leading: ClipRRect(
-                  child: Image.asset(
-                    "assets/images/${state.products[index].filename}",
+                  child: Image.network(
+                    "assets/images/${state.products[index].imageUrl}",
                     alignment: Alignment.centerLeft,
                     width: 100,
                     fit: BoxFit.cover,

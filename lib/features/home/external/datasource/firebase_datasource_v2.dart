@@ -21,11 +21,11 @@ class FirestoreDataSource implements ProductsDataSource {
 
   Future<String> getImageProduct(String url) async {
     try {
-      final storageImage = FirebaseStorage.instance
-          .ref()
-          .child("gs://products-challenge-ca64d.appspot.com/products/$url");
+      final storageRef = FirebaseStorage.instance.ref();
 
-      return await storageImage.getDownloadURL();
+      final imagesRef = storageRef.child("products");
+
+      return await storageRef.getDownloadURL();
     } catch (e) {
       return e.toString();
     }

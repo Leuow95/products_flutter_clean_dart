@@ -3,9 +3,7 @@ class AddProductsParams {
   final String title;
   final String type;
   final String description;
-  final String filename;
-  final int height;
-  final int width;
+  final String imageUrl;
   final double price;
   final int rating;
 
@@ -14,9 +12,7 @@ class AddProductsParams {
     required this.title,
     required this.type,
     required this.description,
-    required this.filename,
-    required this.height,
-    required this.width,
+    required this.imageUrl,
     required this.price,
     required this.rating,
   });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
 import 'package:products_challenge/features/home/presenter/params/add_products_params.dart';
 
@@ -18,11 +19,9 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final nameController = TextEditingController();
   final typeController = TextEditingController();
   final descriptionController = TextEditingController();
-  final filenameController = TextEditingController();
-  final heightController = TextEditingController();
-  final widthController = TextEditingController();
   final priceController = TextEditingController();
   final ratingController = TextEditingController();
+  final imageUrlController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,30 +65,10 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.text,
-                controller: filenameController,
+                controller: imageUrlController,
                 decoration: InputDecoration(
                     hintText: 'Product Image name?',
                     labelText: 'Filename',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                controller: heightController,
-                decoration: InputDecoration(
-                    hintText: 'What\'s the height of the product?',
-                    labelText: 'Height',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                controller: widthController,
-                decoration: InputDecoration(
-                    hintText: 'What\'s the width of the product?',
-                    labelText: 'Width',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20))),
               ),
@@ -120,19 +99,27 @@ class _AddProductsFormState extends State<AddProductsForm> {
                         title: nameController.text,
                         type: typeController.text,
                         description: descriptionController.text,
-                        filename: filenameController.text,
-                        height: int.tryParse(heightController.text) ?? 400,
-                        width: int.tryParse(widthController.text) ?? 400,
+                        imageUrl: imageUrlController.text,
                         price: double.tryParse(priceController.text) ?? 400,
                         rating: int.tryParse(ratingController.text) ?? 4),
                   );
                 },
                 child: const Text("Adicionar"),
-              )
+              ),
+              ElevatedButton(
+                onPressed: _getImage,
+                child: const Text("Abrir galeria"),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<XFile?> _getImage() async {
+    final picker = ImagePicker();
+    XFile? image = await picker.pickImage(source: ImageSource.camera);
+    return image;
   }
 }
