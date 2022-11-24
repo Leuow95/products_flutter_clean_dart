@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
@@ -16,6 +18,18 @@ class FirestoreDataSource implements ProductsDataSource {
           .toList();
     } catch (e) {
       throw UnimplementedError();
+    }
+  }
+
+  @override
+  Future addImageProduct(String path) async {
+    File file = File(path);
+    try {
+      String ref = "products/img-${DateTime.now().toString()}.jpeg";
+      final storageRef = FirebaseStorage.instance.ref();
+      await storageRef.child(ref).putFile(file);
+    } on FirebaseException catch (e) {
+      throw Exception("Error during try to upload: ${e.toString()}");
     }
   }
 
