@@ -4,4 +4,5 @@ abstract class ProductsDataSource {
   Future<List<ProductModel>> getProducts();
   Future<bool> deleteProduct({required String id});
   Future<bool> addProduct({required ProductModel productModel});
+  Future addImageProduct(String path);
 }
