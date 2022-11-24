@@ -8,9 +8,7 @@ class ProductModel extends ProductEntity {
     required String title,
     required String type,
     required String description,
-    required String filename,
-    required int height,
-    required int width,
+    required String imageUrl,
     required double price,
     required int rating,
   }) : super(
@@ -18,9 +16,7 @@ class ProductModel extends ProductEntity {
           title: title,
           type: type,
           description: description,
-          filename: filename,
-          height: height,
-          width: width,
+          imageUrl: imageUrl,
           price: price,
           rating: rating,
         );
@@ -31,9 +27,7 @@ class ProductModel extends ProductEntity {
       'title': title,
       'type': type,
       'description': description,
-      'filename': filename,
-      'height': height,
-      'width': width,
+      'imageUrl': imageUrl,
       'price': price,
       'rating': rating
     };
@@ -47,9 +41,7 @@ class ProductModel extends ProductEntity {
       title: map['title']?.toString() ?? "No title found",
       type: map['type']?.toString() ?? "No type found",
       description: map['description']?.toString() ?? "No description found",
-      filename: map['filename']?.toString() ?? "",
-      height: int.tryParse(map['height'].toString()) ?? 0,
-      width: int.tryParse(map['width'].toString()) ?? 0,
+      imageUrl: map['imageUrl']?.toString() ?? "No image found",
       price: double.tryParse(map['price'].toString()) ?? 0,
       rating: int.tryParse(map['rating'].toString()) ?? 0,
     );
@@ -61,9 +53,7 @@ class ProductModel extends ProductEntity {
         title: entity.title,
         type: entity.type,
         description: entity.description,
-        filename: entity.filename,
-        height: entity.height,
-        width: entity.width,
+        imageUrl: entity.imageUrl,
         price: entity.price,
         rating: entity.rating);
   }

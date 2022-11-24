@@ -23,9 +23,7 @@ void main() {
         title: "title",
         type: "type",
         description: "description",
-        filename: "filename",
-        height: 100,
-        width: 100,
+        imageUrl: "imageUrl",
         price: 100.5,
         rating: 5,
       );

@@ -9,9 +9,7 @@ void main() {
         title: "title",
         type: "type",
         description: "description",
-        filename: "filename",
-        height: 100,
-        width: 50,
+        imageUrl: "imageUrl",
         price: 100.5,
         rating: 4,
       );
@@ -46,9 +44,8 @@ void main() {
       expect(productModel.title, "title");
       expect(productModel.type, "type");
       expect(productModel.description, "description");
-      expect(productModel.filename, "filename");
-      expect(productModel.height, 100);
-      expect(productModel.width, 50);
+      expect(productModel.imageUrl, "filename");
+
       expect(productModel.price, 100.5);
       expect(productModel.rating, 4);
     });
@@ -61,9 +58,7 @@ void main() {
       expect(productModel.title, "No title found");
       expect(productModel.type, "No type found");
       expect(productModel.description, "No description found");
-      expect(productModel.filename, "");
-      expect(productModel.height, 0);
-      expect(productModel.width, 0);
+      expect(productModel.imageUrl, "");
       expect(productModel.price, 0);
       expect(productModel.rating, 0);
     });
@@ -79,9 +74,7 @@ void main() {
       expect(productModel.title, 10.5.toString());
       expect(productModel.type, "No type found");
       expect(productModel.description, "No description found");
-      expect(productModel.filename, "");
-      expect(productModel.height, 0);
-      expect(productModel.width, 0);
+      expect(productModel.imageUrl, "");
       expect(productModel.price, 0);
       expect(productModel.rating, 0);
     });
