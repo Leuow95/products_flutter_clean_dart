@@ -21,7 +21,6 @@ class _AddProductsFormState extends State<AddProductsForm> {
   final descriptionController = TextEditingController();
   final priceController = TextEditingController();
   final ratingController = TextEditingController();
-  final imageUrlController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +63,6 @@ class _AddProductsFormState extends State<AddProductsForm> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                keyboardType: TextInputType.text,
-                controller: imageUrlController,
-                decoration: InputDecoration(
-                    hintText: 'Product Image name?',
-                    labelText: 'Filename',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
                 keyboardType: TextInputType.number,
                 controller: priceController,
                 decoration: InputDecoration(
@@ -99,7 +88,8 @@ class _AddProductsFormState extends State<AddProductsForm> {
                         title: nameController.text,
                         type: typeController.text,
                         description: descriptionController.text,
-                        imageUrl: imageUrlController.text,
+                        //TODO verificar aqui
+                        imageUrl: "Chamar a funçao getImage",
                         price: double.tryParse(priceController.text) ?? 400,
                         rating: int.tryParse(ratingController.text) ?? 4),
                   );
