@@ -1,20 +1,19 @@
 class ProductEntity {
   final String? id;
-  final String title;
+  final String url;
   final String type;
-  final String description;
-  final String imageUrl;
-
+  final String title;
   final double price;
-  final int rating;
+  final String imageUrl;
+  final String description;
 
   ProductEntity({
     this.id,
-    required this.title,
+    required this.url,
     required this.type,
-    required this.description,
-    required this.imageUrl,
+    required this.title,
     required this.price,
-    required this.rating,
+    required this.imageUrl,
+    required this.description,
   });
 }

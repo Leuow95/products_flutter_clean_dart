@@ -9,16 +9,16 @@ class ProductModel extends ProductEntity {
     required String type,
     required String description,
     required String imageUrl,
+    required String url,
     required double price,
-    required int rating,
   }) : super(
           id: id,
           title: title,
           type: type,
           description: description,
           imageUrl: imageUrl,
+          url: url,
           price: price,
-          rating: rating,
         );
 
   Map<String, dynamic> toMap() {
@@ -28,32 +28,33 @@ class ProductModel extends ProductEntity {
       'description': description,
       'imageUrl': imageUrl,
       'price': price,
-      'rating': rating
+      'url': url
     };
   }
 
   String toJson() => json.encode(toMap());
 
-  static ProductModel fromMap(dynamic map, String id) {
+  static ProductModel fromJson(dynamic map) {
     return ProductModel(
-      id: id,
+      id: map["id"]?.toString() ?? "No id found",
       title: map['title']?.toString() ?? "No title found",
       type: map['type']?.toString() ?? "No type found",
       description: map['description']?.toString() ?? "No description found",
       imageUrl: map['imageUrl']?.toString() ?? "No image found",
       price: double.tryParse(map['price'].toString()) ?? 0,
-      rating: int.tryParse(map['rating'].toString()) ?? 0,
+      url: map['url']?.toString() ?? "No url found",
     );
   }
 
   factory ProductModel.fromEntity(ProductEntity entity) {
     return ProductModel(
-        id: entity.id,
-        title: entity.title,
-        type: entity.type,
-        description: entity.description,
-        imageUrl: entity.imageUrl,
-        price: entity.price,
-        rating: entity.rating);
+      id: entity.id,
+      title: entity.title,
+      type: entity.type,
+      description: entity.description,
+      imageUrl: entity.imageUrl,
+      price: entity.price,
+      url: entity.url,
+    );
   }
 }
