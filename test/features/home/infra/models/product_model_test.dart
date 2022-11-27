@@ -11,7 +11,7 @@ void main() {
         description: "description",
         imageUrl: "imageUrl",
         price: 100.5,
-        rating: 4,
+        url: "url",
       );
 
       Map<String, dynamic> map = productModel.toMap();
@@ -23,7 +23,7 @@ void main() {
       expect(map["height"], 100);
       expect(map["width"], 50);
       expect(map["price"], 100.5);
-      expect(map["rating"], 4);
+      expect(map["url"], "url");
     });
 
     test("fromMap success", () {
@@ -40,27 +40,27 @@ void main() {
       };
 
       final ProductModel productModel =
-          ProductModel.fromMap(json, json["id"].toString());
+          ProductModel.fromJson(json, json["id"].toString());
       expect(productModel.title, "title");
       expect(productModel.type, "type");
       expect(productModel.description, "description");
       expect(productModel.imageUrl, "filename");
 
       expect(productModel.price, 100.5);
-      expect(productModel.rating, 4);
+      expect(productModel.url, "url");
     });
 
     test("fromMap error", () {
       final json = {"teste": ""};
 
       final ProductModel productModel =
-          ProductModel.fromMap(json, json["id"].toString());
+          ProductModel.fromJson(json, json["id"].toString());
       expect(productModel.title, "No title found");
       expect(productModel.type, "No type found");
       expect(productModel.description, "No description found");
       expect(productModel.imageUrl, "");
       expect(productModel.price, 0);
-      expect(productModel.rating, 0);
+      expect(productModel.url, "url");
     });
 
     test("fromMap error2", () {
@@ -70,13 +70,13 @@ void main() {
       };
 
       final ProductModel productModel =
-          ProductModel.fromMap(json, json["id"].toString());
+          ProductModel.fromJson(json, json["id"].toString());
       expect(productModel.title, 10.5.toString());
       expect(productModel.type, "No type found");
       expect(productModel.description, "No description found");
       expect(productModel.imageUrl, "");
       expect(productModel.price, 0);
-      expect(productModel.rating, 0);
+      expect(productModel.url, "url");
     });
   });
 }

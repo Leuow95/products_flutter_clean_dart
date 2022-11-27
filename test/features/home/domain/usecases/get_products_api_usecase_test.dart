@@ -25,7 +25,7 @@ void main() {
         description: "description",
         imageUrl: "imageUrl",
         price: 100.5,
-        rating: 5,
+        url: "url",
       );
       when(() => repository.getProducts())
           .thenAnswer((_) async => Right([entity]));

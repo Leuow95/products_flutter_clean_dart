@@ -34,7 +34,7 @@ void main() {
         description: "description",
         imageUrl: "imageUrl",
         price: 100.5,
-        rating: 4,
+        url: "url",
       );
       when(() => dataSourceMock.getProducts())
           .thenAnswer((_) async => [productModel]);
