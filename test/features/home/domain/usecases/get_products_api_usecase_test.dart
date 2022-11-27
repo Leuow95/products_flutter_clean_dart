@@ -19,13 +19,12 @@ void main() {
   group("getProductsUseCase |", () {
     test("Should return a [List<ProductsEntity>] if successful", () async {
       final entity = ProductEntity(
-        id: "id",
-        title: "title",
-        type: "type",
+        id: 1,
+        name: "name",
+        categoryId: "cagegoryId",
         description: "description",
         imageUrl: "imageUrl",
         price: 100.5,
-        url: "url",
       );
       when(() => repository.getProducts())
           .thenAnswer((_) async => Right([entity]));
