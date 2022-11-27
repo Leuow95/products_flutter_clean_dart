@@ -14,7 +14,7 @@ class FirestoreDataSource implements ProductsDataSource {
       final data = await db.collection("products").get();
 
       return data.docs
-          .map((e) => ProductModel.fromMap(e.data(), e.id))
+          .map((e) => ProductModel.fromJson(e.data(), e.id))
           .toList();
     } catch (e) {
       throw UnimplementedError();
@@ -30,18 +30,6 @@ class FirestoreDataSource implements ProductsDataSource {
       await storageRef.child(ref).putFile(file);
     } on FirebaseException catch (e) {
       throw Exception("Error during try to upload: ${e.toString()}");
-    }
-  }
-
-  Future<String> getImageProduct(String url) async {
-    try {
-      final storageRef = FirebaseStorage.instance.ref();
-
-      final imagesRef = storageRef.child("products");
-
-      return await storageRef.getDownloadURL();
-    } catch (e) {
-      return e.toString();
     }
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:products_challenge/features/home/domain/usecases/add_product_api_usecase.dart';
 import 'package:products_challenge/features/home/infra/repositories/product_repository_impl_v2.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
@@ -72,17 +71,6 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(state.products[index].type),
-                    RatingBar.builder(
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      ignoreGestures: true,
-                      itemSize: 20,
-                      initialRating: state.products[index].rating.toDouble(),
-                      allowHalfRating: true,
-                      onRatingUpdate: (rating) {},
-                    ),
                   ],
                 ),
                 trailing: Column(

@@ -8,5 +8,4 @@ abstract class ProductsDataSource {
   Future<Either<DataSourceError, bool>> addProduct({
     required ProductModel productModel,
   });
-  // Future addImageProduct(String path);
 }
