@@ -84,15 +84,15 @@ class _AddProductsFormState extends State<AddProductsForm> {
               ElevatedButton(
                 onPressed: () {
                   widget.homeController.addProduct(
-                    params: AddProductsParams(
-                        title: nameController.text,
-                        type: typeController.text,
-                        description: descriptionController.text,
-                        //TODO verificar aqui
-                        imageUrl: "Chamar a funçao getImage",
-                        price: double.tryParse(priceController.text) ?? 400,
-                        rating: int.tryParse(ratingController.text) ?? 4),
-                  );
+                      params: AddProductsParams(
+                    title: nameController.text,
+                    type: typeController.text,
+                    description: descriptionController.text,
+                    //TODO adicionar a imagem
+                    imageUrl: "Chamar a funçao getImage",
+                    price: double.tryParse(priceController.text) ?? 400,
+                    url: ratingController.text,
+                  ));
                 },
                 child: const Text("Adicionar"),
               ),
