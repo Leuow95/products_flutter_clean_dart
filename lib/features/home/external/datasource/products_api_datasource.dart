@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:products_challenge/features/home/domain/errors/product_failure.dart';
 import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
 import 'package:products_challenge/features/home/infra/models/product_model.dart';
 
@@ -25,7 +27,7 @@ class ProductsApiDataSource implements ProductsDataSource {
   }
 
   @override
-  Future<List<ProductModel>> getProducts() async {
+  Future<Either<DataSourceError, List<ProductModel>>> getProducts() async {
     try {
       final response = await dio
           .get(ProductsApiConstants.baseUrl + ProductsApiConstants.products);
@@ -35,10 +37,13 @@ class ProductsApiDataSource implements ProductsDataSource {
 
         final products = data.map((e) => ProductModel.fromJson(e)).toList();
 
-        return products;
+        return right(products);
       }
+      throw DataSourceError(message: response.statusMessage);
+    } on DataSourceError catch (e) {
+      return left(e);
     } catch (e) {
-      throw UnimplementedError();
+      throw left(DataSourceError());
     }
   }
 }
