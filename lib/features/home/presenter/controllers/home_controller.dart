@@ -52,7 +52,7 @@ class HomeController extends ValueNotifier<ProductState> {
           description: params.description,
           imageUrl: params.imageUrl,
           price: params.price,
-          rating: params.rating),
+          url: params.url),
     );
 
     eitherResponse.fold(
