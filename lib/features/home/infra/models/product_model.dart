@@ -1,60 +1,62 @@
-import 'dart:convert';
-
 import 'package:products_challenge/features/home/domain/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
   ProductModel({
-    required String? id,
+    required int? id,
     required String title,
-    required String type,
+    required String categoryId,
     required String description,
     required String imageUrl,
-    required String url,
     required double price,
   }) : super(
           id: id,
-          title: title,
-          type: type,
+          name: title,
+          categoryId: categoryId,
           description: description,
           imageUrl: imageUrl,
-          url: url,
           price: price,
         );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'title': title,
-      'type': type,
-      'description': description,
-      'imageUrl': imageUrl,
       'price': price,
-      'url': url
+      'productName': name,
+      'imageUrl': imageUrl,
+      'categoryId': categoryId,
+      'description': description,
     };
   }
 
-  String toJson() => json.encode(toMap());
+  ProductEntity toEntity() {
+    return ProductEntity(
+      id: id,
+      name: name,
+      price: price,
+      imageUrl: imageUrl,
+      categoryId: categoryId,
+      description: description,
+    );
+  }
 
-  static ProductModel fromJson(dynamic map) {
+  static ProductModel fromJson(Map<String, dynamic> map) {
     return ProductModel(
-      id: map["id"]?.toString() ?? "No id found",
-      title: map['title']?.toString() ?? "No title found",
-      type: map['type']?.toString() ?? "No type found",
+      id: int.tryParse(map["id"].toString()) ?? -1,
+      title: map['name']?.toString() ?? "No title found",
+      categoryId: map['category']?.toString() ?? "No category found",
       description: map['description']?.toString() ?? "No description found",
-      imageUrl: map['imageUrl']?.toString() ?? "No image found",
+      imageUrl: map['image']?.toString() ?? "No image found",
       price: double.tryParse(map['price'].toString()) ?? 0,
-      url: map['url']?.toString() ?? "No url found",
     );
   }
 
   factory ProductModel.fromEntity(ProductEntity entity) {
     return ProductModel(
       id: entity.id,
-      title: entity.title,
-      type: entity.type,
+      title: entity.name,
+      categoryId: entity.categoryId,
       description: entity.description,
       imageUrl: entity.imageUrl,
       price: entity.price,
-      url: entity.url,
     );
   }
 }
