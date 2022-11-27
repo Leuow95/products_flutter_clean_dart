@@ -1,0 +1,9 @@
+{
+    "id": 3,
+    "category": 1,
+    "name": "Gata",
+    "price": 458,
+    "description": "uma gata gorda",
+    "url": "http://52.67.196.41:8080/products/3",
+    "image": "http://52.67.196.41:8080/uploads/79d77cb4-7a05-428d-ab87-3ab66bd0e70d.jpeg"
+}
