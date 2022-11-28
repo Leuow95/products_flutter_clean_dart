@@ -1,52 +1,40 @@
-import 'dart:io';
-
+import 'package:dartz/dartz.dart';
+import '../../domain/errors/product_failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
 import 'package:products_challenge/features/home/infra/models/product_model.dart';
+import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
 
 class FirestoreDataSource implements ProductsDataSource {
   @override
-  Future<List<ProductModel>> getProducts() async {
+  Future<Either<DataSourceError, List<ProductModel>>> getProducts() async {
     try {
       final db = FirebaseFirestore.instance;
 
       final data = await db.collection("products").get();
 
-      return data.docs
-          .map((e) => ProductModel.fromJson(e.data(), e.id))
-          .toList();
+      return right(
+          data.docs.map((e) => ProductModel.fromJson(e.data())).toList());
     } catch (e) {
       throw UnimplementedError();
     }
   }
 
   @override
-  Future addImageProduct(String path) async {
-    File file = File(path);
-    try {
-      String ref = "products/img-${DateTime.now().toString()}.jpeg";
-      final storageRef = FirebaseStorage.instance.ref();
-      await storageRef.child(ref).putFile(file);
-    } on FirebaseException catch (e) {
-      throw Exception("Error during try to upload: ${e.toString()}");
-    }
-  }
-
-  @override
-  Future<bool> deleteProduct({required String id}) async {
+  Future<Either<DataSourceError, bool>> deleteProductById(
+      {required int id}) async {
     try {
       final db = FirebaseFirestore.instance;
 
-      await db.collection("products").doc(id).delete();
-      return true;
+      await db.collection("products").doc(id.toString()).delete();
+      return right(true);
     } catch (e) {
-      return false;
+      return left(DataSourceError());
     }
   }
 
   @override
-  Future<bool> addProduct({required ProductModel productModel}) async {
+  Future<Either<DataSourceError, bool>> addProduct(
+      {required ProductModel productModel}) async {
     // const item2 = {
     //   "title": "Sweet fresh stawberry",
     //   "type": "fruit",
@@ -61,11 +49,11 @@ class FirestoreDataSource implements ProductsDataSource {
     try {
       final db = FirebaseFirestore.instance;
 
-      await db.collection("products").add(productModel.toMap());
+      await db.collection("products").add(productModel.toJson());
       // await db.collection("products").add(item2);
-      return true;
+      return right(true);
     } catch (e) {
-      return false;
+      return left(DataSourceError());
     }
   }
 }

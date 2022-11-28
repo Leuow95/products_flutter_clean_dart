@@ -4,7 +4,7 @@ import 'package:products_challenge/features/home/infra/models/product_model.dart
 
 abstract class ProductsDataSource {
   Future<Either<DataSourceError, List<ProductModel>>> getProducts();
-  Future<Either<DataSourceError, bool>> deleteProduct({required String id});
+  Future<Either<DataSourceError, bool>> deleteProductById({required int id});
   Future<Either<DataSourceError, bool>> addProduct({
     required ProductModel productModel,
   });
