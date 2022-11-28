@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:products_challenge/features/home/domain/usecases/add_product_api_usecase.dart';
+import 'package:products_challenge/features/home/external/datasource/products_api_datasource.dart';
 import 'package:products_challenge/features/home/infra/repositories/product_repository_impl_v2.dart';
 import 'package:products_challenge/features/home/presenter/controllers/home_controller.dart';
 import 'package:products_challenge/features/home/domain/usecases/get_products_api_usecase.dart';
@@ -22,15 +24,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     controller = HomeController(
       getProductsUsecase: GetProductApiUseCaseImpl(
-        ProductRepositoryImplV2(FirestoreDataSource()),
-      ),
+          ProductRepositoryImplV2(ProductsApiDataSource(Dio()))),
       deleteProductUsecase: DeleteProductsUsecaseImpl(
-          ProductRepositoryImplV2(FirestoreDataSource())),
+          ProductRepositoryImplV2(ProductsApiDataSource(Dio()))),
       addProductUsecase: AddProductUsecaseImpl(
-        ProductRepositoryImplV2(FirestoreDataSource()),
+        ProductRepositoryImplV2(ProductsApiDataSource(Dio())),
       ),
     );
-    imageService = FirestoreDataSource();
     controller.fetchProducts();
     super.initState();
   }
@@ -48,46 +48,65 @@ class _HomePageState extends State<HomePage> {
         valueListenable: controller,
         builder: (context, state, __) {
           if (state is ProductInitialState) {
-            return const Center(child: Text("Funcionou nao"));
+            return const Center(child: Text("Estado inicial"));
+          } else if (state is ProductFailureState) {
+            return const Center(
+              child: Text("Falha ao carregar os produtos"),
+            );
           } else if (state is ProductLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProductSuccessState) {
-            return ListView.builder(
-              itemExtent: 80,
+            return ListView.separated(
+              padding: const EdgeInsets.all(8),
               itemCount: state.products.length,
-              itemBuilder: (context, index) => ListTile(
-                visualDensity: const VisualDensity(vertical: 2),
-                leading: ClipRRect(
-                  child: Image.network(
-                    "assets/images/${state.products[index].imageUrl}",
-                    alignment: Alignment.centerLeft,
-                    width: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                title: Text(state.products[index].title),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(state.products[index].type),
-                  ],
-                ),
-                trailing: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    PopupMenuButton(
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(child: Text("Editar")),
-                        PopupMenuItem(
-                          child: const Text("Excluir"),
-                          onTap: () => controller.deleteProductByIndex(
-                              id: state.products[index].id!),
-                        ),
-                      ],
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 8,
+              ),
+              itemBuilder: (context, index) => Material(
+                elevation: 4,
+                shadowColor: Colors.blueGrey,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                child: ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      state.products[index].imageUrl,
+                      alignment: Alignment.centerLeft,
+                      width: 100,
+                      fit: BoxFit.cover,
                     ),
-                    const Text("R\$ 20,00")
-                  ],
+                  ),
+                  title: Text(state.products[index].name),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                          "R\$ ${state.products[index].price.toStringAsFixed(2)}"),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () => controller.deleteProductByIndex(
+                            id: state.products[index].id!),
+                        icon: const Icon(Icons.delete),
+                        color: Colors.red,
+                      ),
+                      PopupMenuButton(
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(child: Text("Editar")),
+                          PopupMenuItem(
+                            child: const Text("Excluir"),
+                            onTap: () => controller.deleteProductByIndex(
+                                id: state.products[index].id!),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

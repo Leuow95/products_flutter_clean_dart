@@ -17,7 +17,7 @@ class AddProductsForm extends StatefulWidget {
 class _AddProductsFormState extends State<AddProductsForm> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
-  final typeController = TextEditingController();
+  final categoryController = TextEditingController();
   final descriptionController = TextEditingController();
   final priceController = TextEditingController();
   final ratingController = TextEditingController();
@@ -44,7 +44,7 @@ class _AddProductsFormState extends State<AddProductsForm> {
               const SizedBox(height: 8),
               TextFormField(
                 keyboardType: TextInputType.name,
-                controller: typeController,
+                controller: categoryController,
                 decoration: InputDecoration(
                     hintText: 'What\'s the type of the product?',
                     labelText: 'Type',
@@ -86,12 +86,11 @@ class _AddProductsFormState extends State<AddProductsForm> {
                   widget.homeController.addProduct(
                       params: AddProductsParams(
                     title: nameController.text,
-                    type: typeController.text,
+                    categoryId: categoryController.text,
                     description: descriptionController.text,
                     //TODO adicionar a imagem
                     imageUrl: "Chamar a funçao getImage",
                     price: double.tryParse(priceController.text) ?? 400,
-                    url: ratingController.text,
                   ));
                 },
                 child: const Text("Adicionar"),

@@ -28,7 +28,7 @@ class HomeController extends ValueNotifier<ProductState> {
     );
   }
 
-  Future<void> deleteProductByIndex({required String id}) async {
+  Future<void> deleteProductByIndex({required int id}) async {
     value = ProductLoadingState();
 
     final eitherResponse = await deleteProductUsecase.call(id: id);
@@ -46,13 +46,13 @@ class HomeController extends ValueNotifier<ProductState> {
 
     final eitherResponse = await addProductUsecase.call(
       productEntity: ProductEntity(
-          id: null,
-          title: params.title,
-          type: params.type,
-          description: params.description,
-          imageUrl: params.imageUrl,
-          price: params.price,
-          url: params.url),
+        id: params.id,
+        name: params.title,
+        categoryId: params.categoryId,
+        description: params.description,
+        imageUrl: params.imageUrl,
+        price: params.price,
+      ),
     );
 
     eitherResponse.fold(
