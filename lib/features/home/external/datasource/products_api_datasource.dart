@@ -8,22 +8,36 @@ class ProductsApiDataSource implements ProductsDataSource {
   final Dio dio;
 
   ProductsApiDataSource(this.dio);
+
   @override
-  Future addImageProduct(String path) {
-    // TODO: implement addImageProduct
-    throw UnimplementedError();
+  Future<Either<DataSourceError, bool>> addProduct({
+    required ProductModel productModel,
+  }) async {
+    try {
+      await dio.post(
+          "${ProductsApiConstants.baseUrl}${ProductsApiConstants.baseUrl}",
+          queryParameters: productModel.toJson());
+      return right(true);
+    } catch (e) {
+      throw DataSourceError();
+    }
   }
 
   @override
-  Future<bool> addProduct({required ProductModel productModel}) {
-    // TODO: implement addProduct
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> deleteProduct({required String id}) {
-    // TODO: implement deleteProduct
-    throw UnimplementedError();
+  Future<Either<DataSourceError, bool>> deleteProductById({
+    required int id,
+  }) async {
+    try {
+      await dio.delete(
+          "${ProductsApiConstants.baseUrl}${ProductsApiConstants.products}/$id",
+          options: Options(headers: {
+            "Authorization":
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuZXdAdXNlci5jb20iLCJpYXQiOjE2Njk1OTU1MDcsImV4cCI6MTY2OTYzMTUwN30.-tEjx4U9QPG9fa9qLtu8yHld9aR62nJXuSpJ6tVaGj8",
+          }));
+      return right(true);
+    } catch (e) {
+      throw left(DataSourceError());
+    }
   }
 
   @override
@@ -33,7 +47,7 @@ class ProductsApiDataSource implements ProductsDataSource {
           .get(ProductsApiConstants.baseUrl + ProductsApiConstants.products);
 
       if (response.statusCode == 200) {
-        final data = List.from(response.data as List);
+        final data = List.from(response.data["products"] as List);
 
         final products = data.map((e) => ProductModel.fromJson(e)).toList();
 
