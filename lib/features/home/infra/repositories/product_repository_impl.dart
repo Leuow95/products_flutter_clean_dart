@@ -12,21 +12,23 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<ProductFailure, List<ProductEntity>>> getProducts() async {
     try {
-      final response = await dataSource.getProducts();
+      final eitherResponse = await dataSource.getProducts();
 
-      return Right(response);
+      return eitherResponse.fold(
+        (failure) => left(DataSourceError(message: failure.message.toString())),
+        (products) => right(products),
+      );
     } on DataSourceError catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(DataSourceError());
+      return left(DataSourceError());
     }
   }
 
   @override
-  Future<Either<ProductFailure, bool>> deleteProduct(
-      {required String id}) async {
+  Future<Either<ProductFailure, bool>> deleteProduct({required int id}) async {
     try {
-      await dataSource.deleteProduct(id: id);
+      await dataSource.deleteProductById(id: id);
       return right(true);
     } on DataSourceError catch (e) {
       return left(e);
