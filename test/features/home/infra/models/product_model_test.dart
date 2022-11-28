@@ -5,16 +5,15 @@ void main() {
   group("ProductModel |", () {
     test("toMap", () {
       final ProductModel productModel = ProductModel(
-        id: "id",
+        id: 0,
         title: "title",
-        type: "type",
+        categoryId: "categoryId",
         description: "description",
         imageUrl: "imageUrl",
         price: 100.5,
-        url: "url",
       );
 
-      Map<String, dynamic> map = productModel.toMap();
+      Map<String, dynamic> map = productModel.toJson();
 
       expect(map["title"], "title");
       expect(map["type"], "type");
@@ -28,39 +27,31 @@ void main() {
 
     test("fromMap success", () {
       final json = {
-        "id": "idfromapp",
-        "title": "title",
-        "type": "type",
+        "id": 0,
+        "name": "title",
+        "categoryId": "type",
         "description": "description",
-        "filename": "filename",
-        "height": 100,
-        "width": 50,
         "price": 100.5,
-        "rating": 4,
       };
 
-      final ProductModel productModel =
-          ProductModel.fromJson(json, json["id"].toString());
-      expect(productModel.title, "title");
-      expect(productModel.type, "type");
+      final ProductModel productModel = ProductModel.fromJson(json);
+      expect(productModel.name, "title");
+      expect(productModel.categoryId, "type");
       expect(productModel.description, "description");
       expect(productModel.imageUrl, "filename");
 
       expect(productModel.price, 100.5);
-      expect(productModel.url, "url");
     });
 
     test("fromMap error", () {
       final json = {"teste": ""};
 
-      final ProductModel productModel =
-          ProductModel.fromJson(json, json["id"].toString());
-      expect(productModel.title, "No title found");
-      expect(productModel.type, "No type found");
+      final ProductModel productModel = ProductModel.fromJson(json);
+      expect(productModel.name, "No title found");
+      expect(productModel.categoryId, "No type found");
       expect(productModel.description, "No description found");
       expect(productModel.imageUrl, "");
       expect(productModel.price, 0);
-      expect(productModel.url, "url");
     });
 
     test("fromMap error2", () {
@@ -69,14 +60,15 @@ void main() {
         "title": 10.5,
       };
 
-      final ProductModel productModel =
-          ProductModel.fromJson(json, json["id"].toString());
-      expect(productModel.title, 10.5.toString());
-      expect(productModel.type, "No type found");
+      final ProductModel productModel = ProductModel.fromJson(
+        json,
+      );
+      expect(productModel.id, "No id found");
+      expect(productModel.name, 10.5.toString());
+      expect(productModel.categoryId, "No categoryId found");
       expect(productModel.description, "No description found");
       expect(productModel.imageUrl, "");
       expect(productModel.price, 0);
-      expect(productModel.url, "url");
     });
   });
 }

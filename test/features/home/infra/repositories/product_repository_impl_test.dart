@@ -28,16 +28,15 @@ void main() {
     test("Should return a [List<ProductModel> when call successful] |",
         () async {
       final productModel = ProductModel(
-        id: "id",
+        id: 0,
         title: "title",
-        type: "type",
+        categoryId: "categoryId",
         description: "description",
         imageUrl: "imageUrl",
         price: 100.5,
-        url: "url",
       );
       when(() => dataSourceMock.getProducts())
-          .thenAnswer((_) async => [productModel]);
+          .thenAnswer((_) async => right([productModel]));
 
       final result = await repository.getProducts();
 
