@@ -1,0 +1,1 @@
+class RegisterFailure implements Exception {}
