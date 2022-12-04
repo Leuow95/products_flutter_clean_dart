@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:products_challenge/features/login/domain/errors/user_failure.dart';
-import 'package:products_challenge/features/login/domain/repositories/login_repository.dart';
+import 'package:products_challenge/features/auth/login/domain/errors/user_failure.dart';
+import 'package:products_challenge/features/auth/login/domain/repositories/login_repository.dart';
 
 abstract class LoginUsecase {
   Future<Either<LoginDataSourceError, bool>> login();
