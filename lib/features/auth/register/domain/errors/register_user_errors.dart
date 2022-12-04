@@ -1,1 +1,7 @@
-class RegisterFailure implements Exception {}
+class RegisterFailure implements Exception {
+  final String? message;
+
+  RegisterFailure({
+    required this.message,
+  });
+}
