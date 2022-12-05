@@ -12,7 +12,7 @@ abstract class RegisterUseCase {
 }
 
 class RegisterUseCaseImpl implements RegisterUseCase {
-  final RegisterRepository repository;
+  final RegisterUserRepository repository;
 
   RegisterUseCaseImpl(this.repository);
   @override
@@ -22,7 +22,7 @@ class RegisterUseCaseImpl implements RegisterUseCase {
     required String password,
   }) async {
     await repository.register(
-      user: RegisterUserEntity(
+      userEntity: RegisterUserEntity(
         userName: userName,
         email: email,
         password: password,
