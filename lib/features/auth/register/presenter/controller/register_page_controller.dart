@@ -6,9 +6,8 @@ import 'package:products_challenge/features/auth/register/presenter/params/regis
 class RegisterController extends ValueNotifier<RegisterState> {
   final RegisterUseCase registerUseCase;
   RegisterController(
-    RegisterState value,
     this.registerUseCase,
-  ) : super(value);
+  ) : super(RegisterInitialState());
 
   Future<void> registerUser({
     required RegisterUserParams params,
