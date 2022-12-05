@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:products_challenge/features/home/domain/errors/product_failure.dart';
 import 'package:products_challenge/features/home/infra/datasources/products_datasource.dart';
 import 'package:products_challenge/features/home/infra/models/product_model.dart';
+import 'package:products_challenge/utils/datasource_constants.dart';
 
 class ProductsApiDataSource implements ProductsDataSource {
   final Dio dio;
@@ -14,8 +15,7 @@ class ProductsApiDataSource implements ProductsDataSource {
     required ProductModel productModel,
   }) async {
     try {
-      await dio.post(
-          "${ProductsApiConstants.baseUrl}${ProductsApiConstants.baseUrl}",
+      await dio.post("${ApiConstants.baseUrl}${ApiConstants.baseUrl}",
           queryParameters: productModel.toJson());
       return right(true);
     } catch (e) {
@@ -28,8 +28,7 @@ class ProductsApiDataSource implements ProductsDataSource {
     required int id,
   }) async {
     try {
-      await dio.delete(
-          "${ProductsApiConstants.baseUrl}${ProductsApiConstants.products}/$id",
+      await dio.delete("${ApiConstants.baseUrl}${ApiConstants.products}/$id",
           options: Options(headers: {
             "Authorization":
                 "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuZXdAdXNlci5jb20iLCJpYXQiOjE2Njk1OTU1MDcsImV4cCI6MTY2OTYzMTUwN30.-tEjx4U9QPG9fa9qLtu8yHld9aR62nJXuSpJ6tVaGj8",
@@ -43,8 +42,9 @@ class ProductsApiDataSource implements ProductsDataSource {
   @override
   Future<Either<DataSourceError, List<ProductModel>>> getProducts() async {
     try {
-      final response = await dio
-          .get(ProductsApiConstants.baseUrl + ProductsApiConstants.products);
+      final response = await dio.get(
+        ApiConstants.baseUrl + ApiConstants.products,
+      );
 
       if (response.statusCode == 200) {
         final data = List.from(response.data["products"] as List);
@@ -60,9 +60,4 @@ class ProductsApiDataSource implements ProductsDataSource {
       throw left(DataSourceError());
     }
   }
-}
-
-class ProductsApiConstants {
-  static const baseUrl = "http://52.67.196.41:8080";
-  static const products = "/products";
 }
