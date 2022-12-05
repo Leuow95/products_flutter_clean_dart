@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:products_challenge/components/drawer.dart';
 import 'package:products_challenge/features/home/domain/usecases/add_product_api_usecase.dart';
 import 'package:products_challenge/features/home/external/datasource/products_api_datasource.dart';
 import 'package:products_challenge/features/home/infra/repositories/product_repository_impl_v2.dart';
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () => Navigator.of(context)
             .pushNamed("/add_product", arguments: controller),
       ),
+      drawer: const CustomDrawer(),
       body: ValueListenableBuilder<ProductState>(
         valueListenable: controller,
         builder: (context, state, __) {
