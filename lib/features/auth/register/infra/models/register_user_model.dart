@@ -18,4 +18,12 @@ class RegisterUserModel extends RegisterUserEntity {
       password: entity.password,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'userName': userName,
+      'userEmail': email,
+      'userPassword': password,
+    };
+  }
 }
