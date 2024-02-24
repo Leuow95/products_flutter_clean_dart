@@ -22,25 +22,25 @@ class RoutesGenerator {
   static Route<dynamic>? generateRoutes(RouteSettings settings) {
     final routes = RoutesGenerator.getRoutes(settings);
     final WidgetBuilder? builder = routes[settings.name];
-    if (builder != null) {
-      return PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            builder(context),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(0.0, 1.0);
-          const end = Offset.zero;
-          const curve = Curves.ease;
 
-          var tween =
-              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+    if (builder == null) return;
+    
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          builder(context),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
 
-          return SlideTransition(
-            position: animation.drive(tween),
-            child: child,
-          );
-        },
-      );
-    }
-    return null;
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }
